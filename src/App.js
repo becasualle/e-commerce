@@ -5,6 +5,7 @@ import { Home, SingleProduct, Cart, Checkout, Error, About, Products, PrivateRou
 
 function App() {
   return (
+    // set up routes
     <Router>
       <Navbar />
       <Sidebar />

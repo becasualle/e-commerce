@@ -8,31 +8,39 @@ import CartButtons from './CartButtons'
 import { useProductsContext } from '../context/products_context'
 import { useUserContext } from '../context/user_context'
 
+// 
 const Nav = () => {
-  return (<NavContainer>
-    <div className="nav-center">
+  return (
+    // styles wrapper
+    <NavContainer>
 
-      <div className="nav-header">
-        <Link to="/">
-          <img src={logo} alt="comfy sloth" />
-        </Link>
-        <button type="button" className='nav-toggle'>
-          <FaBars />
-        </button>
+      <div className="nav-center">
+
+        {/* logo and burger-menu */}
+        <div className="nav-header">
+          <Link to="/">
+            <img src={logo} alt="comfy sloth" />
+          </Link>
+          <button type="button" className='nav-toggle'>
+            <FaBars />
+          </button>
+        </div>
+        {/* Home, About, Products Links in the header */}
+        <ul className="nav-links">
+          {links.map(link => {
+            const { id, text, url } = link;
+            return <li key={id}>
+              <Link to={url}>{text}</Link>
+            </li>
+          })}
+        </ul>
+        {/* Cart and Login buttons  */}
+        <CartButtons />
+
       </div>
 
-      <ul className="nav-links">
-        {links.map(link => {
-          const { id, text, url } = link;
-          return <li key={id}>
-            <Link to={url}>{text}</Link>
-          </li>
-        })}
-      </ul>
-
-      <CartButtons />
-    </div>
-  </NavContainer>);
+    </NavContainer>
+  );
 }
 
 const NavContainer = styled.nav`
