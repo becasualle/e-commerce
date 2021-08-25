@@ -20,8 +20,6 @@ const initialState = {
   isSideBarOpen: false,
 }
 
-
-
 const ProductsContext = React.createContext()
 
 export const ProductsProvider = ({ children }) => {
