@@ -10,6 +10,15 @@ import {
 } from '../actions'
 
 const products_reducer = (state, action) => {
+  // set isSedbar depending on function we invoke (productContext -> SideBar) 
+  if (action.type === SIDEBAR_OPEN) {
+    return { ...state, isSideBarOpen: true }
+  }
+
+  if (action.type === SIDEBAR_CLOSE) {
+    return { ...state, isSideBarOpen: false }
+  }
+
   return state
   throw new Error(`No Matching "${action.type}" - action type`)
 }
