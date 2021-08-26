@@ -28,7 +28,6 @@ const ProductsContext = React.createContext()
 
 export const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
   // set functions for opening and closing sidebar
   const openSidebar = () => {
     dispatch({ type: SIDEBAR_OPEN })
@@ -45,9 +44,8 @@ export const ProductsProvider = ({ children }) => {
       const products = response.data;
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
-      dispatch({ type: GET_SINGLE_PRODUCT_ERROR })
+      dispatch({ type: GET_PRODUCTS_ERROR })
     }
-
   }
 
   useEffect(() => {
