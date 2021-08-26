@@ -1,3 +1,4 @@
+// We must import React in order to add components (icons) to services object properties
 import React from 'react'
 import { GiCompass, GiDiamondHard, GiStabbedNote } from 'react-icons/gi'
 export const links = [
