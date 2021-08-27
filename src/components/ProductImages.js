@@ -1,8 +1,27 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const ProductImages = () => {
-  return <h4>product images</h4>
+// before fetch image is undefined so we need to set default value in order to useState based on images
+const ProductImages = ({ images = [{ url: '' }] }) => {
+  const [main, setMain] = useState(images[0]);
+
+  return <Wrapper>
+    <img src={main.url} alt="main image" className="main" />
+    <div className="gallery">
+      {images.map((image, index) => {
+        // when click on small image - update state and show it as main image
+        return <img
+          src={image.url}
+          alt={image.filename}
+          key={index}
+          // when click change main image to clicked one
+          onClick={() => setMain(images[index])}
+          // add border to show what image we display now as main
+          className={`${image.url === main.url ? 'active' : null}`}
+        />
+      })}
+    </div>
+  </Wrapper>
 }
 
 const Wrapper = styled.section`
