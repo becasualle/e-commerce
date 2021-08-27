@@ -15,6 +15,36 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const SingleProductPage = () => {
+  // get me id prop out of object useParams(). We send url param id in Product.js
+  const { id } = useParams();
+  // get history from React Router DOM
+  const history = useHistory();
+  // get state values
+  const { single_product_loading: loading, single_product_error: error, single_product: product, fetchSingleProduct } = useProductsContext();
+
+  // get product data
+  useEffect(() => {
+    fetchSingleProduct(`${url}${id}`)
+  }, [id])
+
+  // if error - redirect user to home page after 3 sec
+  // need to add error in dependency list because by default it's false and we never redirect
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        // navigate to homepage 
+        history.push('/')
+      }, 3000)
+    }
+  }, [error])
+
+  if (loading) {
+    return <Loading />
+  }
+  if (error) {
+    return <Error />
+  }
+
   return <h4>single product page</h4>
 }
 
