@@ -3,13 +3,16 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 // show breadcrumbs at the header of page
-const PageHero = ({ title }) => {
+const PageHero = ({ title, product }) => {
   return (
     <Wrapper>
       <div className="section-center">
         <h3>
           {/* breadcrumbs with dynamic title that we send as props */}
-          <Link to='/'>Home</Link>/ {title}
+          <Link to='/'>Home</Link>
+          {/* if we inside single product cart add one more link in path */}
+          {product && <Link to="/products">/ Products</Link>}
+          / {title}
         </h3>
       </div>
     </Wrapper>
