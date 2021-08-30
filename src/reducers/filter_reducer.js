@@ -10,12 +10,17 @@ import {
 } from '../actions'
 
 const filter_reducer = (state, action) => {
+
   if (action.type === LOAD_PRODUCTS) {
+    let maxPrice = action.payload.map((product) => product.price);
+    maxPrice = Math.max(...maxPrice);
+
     // we need to use spread operator with products, because it creats separate instance and when we filter we don't affect to default array
     // we are copying the values, not reference to same place in memory
     return {
       ...state, all_products: [...action.payload],
-      filtered_products: [...action.payload]
+      filtered_products: [...action.payload],
+      filters: { ...state.filters, max_price: maxPrice, price: maxPrice }
     }
   }
 
@@ -39,10 +44,11 @@ const filter_reducer = (state, action) => {
     const { sort, filtered_products } = state;
 
     let tempProducts = [...filtered_products];
-
+    // iterate over array and compare prices. Place smallest item first
     if (sort === 'price-lowest') {
-      // iterate over array and compare prices. Place smallest item first
+      // short-way
       // tempProducts = tempProducts.sort((a, b) => a.price - b.price)
+      // long-way
       tempProducts = tempProducts.sort((a, b) => {
         if (a.price < b.price) {
           return -1
@@ -74,6 +80,17 @@ const filter_reducer = (state, action) => {
     }
 
     return { ...state, filtered_products: tempProducts }
+  }
+
+  if (action.type === UPDATE_FILTERS) {
+    const { name, value } = action.payload;
+    // set up dynamic value inside filters property
+    return { ...state, filters: { ...state.filtes, [name]: value } }
+  }
+
+  if (action.type === FILTER_PRODUCTS) {
+    console.log('filtering products')
+    return { ...state }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`)
