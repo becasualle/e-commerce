@@ -10,7 +10,10 @@ import { Auth0Provider } from '@auth0/auth0-react'
 
 ReactDOM.render(
     <ProductsProvider>
-        <App />
+        {/* because we need to get some info from ProductsProvider to FilterProvider we need to put it inside */}
+        <FilterProvider>
+            <App />
+        </FilterProvider>
     </ProductsProvider>,
 
     document.getElementById('root')
