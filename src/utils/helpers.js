@@ -6,4 +6,13 @@ export const formatPrice = (number) => {
     }).format(number / 100);
 }
 
-export const getUniqueValues = () => { }
+export const getUniqueValues = (data, type) => {
+    // use dynamic values as index
+    let unique = data.map((item) => item[type]);
+    // instead of getting array of arrays get all elements in same level
+    if (type === 'colors') {
+        unique = unique.flat()
+    }
+    // get array with unique values and 'all' element
+    return ['all', ...new Set(unique)]
+}
