@@ -85,11 +85,11 @@ const filter_reducer = (state, action) => {
   if (action.type === UPDATE_FILTERS) {
     const { name, value } = action.payload;
     // set up dynamic value inside filters property
-    return { ...state, filters: { ...state.filtes, [name]: value } }
+    return { ...state, filters: { ...state.filters, [name]: value } }
   }
 
   if (action.type === FILTER_PRODUCTS) {
-
+    console.log('filter products')
     return { ...state }
   }
 

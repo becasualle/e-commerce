@@ -61,7 +61,12 @@ export const FilterProvider = ({ children }) => {
 
   const updateFilters = e => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    // for buttons we can't get e.target.value, that's why we need to change logic for buttons
+    if (name === 'category') {
+      value = e.target.textContent
+    }
+    // console.log({ name, value })
     dispatch({ type: UPDATE_FILTERS, payload: { name, value } })
   }
 
