@@ -84,6 +84,7 @@ const Filters = () => {
               colors.map((col, index) => {
                 if (col === 'all') {
                   return <button
+                    key={index}
                     name="color"
                     onClick={updateFilters}
                     data-color="all"
@@ -111,7 +112,25 @@ const Filters = () => {
         </div>
         {/* end of colors */}
 
+        {/* price */}
+        <div className="form-control">
+          <h5>price</h5>
+          <p className="price">{formatPrice(price)}</p>
+          <input type="range" name="price" onChange={updateFilters} min={min_price} max={max_price} value={price} />
+        </div>
+        {/* end of price */}
+
+        {/* shipping */}
+        <div className="form-control shipping">
+          <label htmlFor="shipping">free shipping</label>
+          <input type="checkbox" name="shipping" id="shipping" onChange={updateFilters} checked={shipping} />
+        </div>
+        {/* end of shipping */}
+
       </form>
+      <button type="button" className='clear-btn' onClick={clearFilters}>
+        clear filters
+      </button>
     </div>
   </Wrapper>
 }
