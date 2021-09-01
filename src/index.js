@@ -12,7 +12,9 @@ ReactDOM.render(
     <ProductsProvider>
         {/* because we need to get some info from ProductsProvider to FilterProvider we need to put it inside */}
         <FilterProvider>
-            <App />
+            <CartProvider>
+                <App />
+            </CartProvider>
         </FilterProvider>
     </ProductsProvider>,
 
