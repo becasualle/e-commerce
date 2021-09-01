@@ -9,11 +9,20 @@ import {
 const cart_reducer = (state, action) => {
   if (action.type === ADD_TO_CART) {
     const { id, color, amount, product } = action.payload;
+    //Example: { id: "recm7wC8TBVdU9oEL", color(mainColor): "#0000ff", amount: 1, product: {category, colors, company, description, id, images, name, price, reviews, stars, stock} } 
+
     // find if there is same item already in the cart
-    const tempItem = state.cart.find(i => i.id === id + color)
+    const tempItem = state.cart.find(item => {
+      // compare if id item in cart (recoW8ecgjtKx2Sj2#ff0000) matches id item that we add 
+      // if we add item with same id and same color like we already have in the card - create tempItem
+      return item.id === id + color
+    })
+
     // add existing item to the card
+    // if we created tempItem it means that we add item that already have in the cart
     if (tempItem) {
       const tempCart = state.cart.map(cartItem => {
+        // update amount only for exact item with same color and id, not to all items in array
         if (cartItem.id === id + color) {
           let newAmount = cartItem.amount + amount;
           if (newAmount > cartItem.max) {

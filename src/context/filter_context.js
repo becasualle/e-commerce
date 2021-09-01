@@ -79,7 +79,7 @@ export const FilterProvider = ({ children }) => {
       value = e.target.checked;
     }
 
-    console.log({ name, value })
+    // console.log({ name, value })
 
     dispatch({ type: UPDATE_FILTERS, payload: { name, value } })
   }
