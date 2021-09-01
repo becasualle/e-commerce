@@ -8,6 +8,7 @@ import { useUserContext } from '../context/user_context'
 
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
+  const { total_items } = useCartContext();
 
   return (
     // class uses in Navbar to hide in small screen
@@ -19,7 +20,7 @@ const CartButtons = () => {
         <span className="cart-container">
           <FaShoppingCart />
           <span className="cart-value">
-            12
+            {total_items}
           </span>
         </span>
       </Link>
