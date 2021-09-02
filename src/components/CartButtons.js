@@ -9,6 +9,7 @@ import { useUserContext } from '../context/user_context'
 const CartButtons = () => {
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
+  const { loginWithRedirect, myUser, logout } = useUserContext();
 
   return (
     // class uses in Navbar to hide in small screen
@@ -26,9 +27,18 @@ const CartButtons = () => {
       </Link>
 
       {/* Login button */}
-      <button type="button" className="auth-btn">
-        Login <FaUserPlus />
-      </button>
+      {/* if user is logged in - show logout btn, if not - show login btn */}
+      {myUser ? (
+        <button type='button' className='auth-btn' onClick={() => logout({ returnTo: window.location.origin })}>
+          Logout <FaUserMinus />
+        </button>
+      ) : (
+        <button type="button" className="auth-btn" onClick={loginWithRedirect}>
+          Login <FaUserPlus />
+        </button>
+      )
+      }
+
 
     </Wrapper>
   );

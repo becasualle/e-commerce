@@ -14,6 +14,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 // QrcVlLWcMDcYqLAsbTOSrHGBfvHi0Bq8
 
 ReactDOM.render(
+    // save login info in localstorage
     <Auth0Provider
         domain="dev-3ayl8y6u.eu.auth0.com"
         clientId="QrcVlLWcMDcYqLAsbTOSrHGBfvHi0Bq8"
