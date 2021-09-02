@@ -90,7 +90,6 @@ const cart_reducer = (state, action) => {
   }
 
   if (action.type === COUNT_CART_TOTALS) {
-    console.log('counted')
 
     // for each item in cart get it's amount and price and save to total_items, total_amount
     const { total_items, total_amount } = state.cart.reduce(
