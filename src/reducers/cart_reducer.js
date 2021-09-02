@@ -92,12 +92,14 @@ const cart_reducer = (state, action) => {
   if (action.type === COUNT_CART_TOTALS) {
     console.log('counted')
 
+    // for each item in cart get it's amount and price and save to total_items, total_amount
     const { total_items, total_amount } = state.cart.reduce(
       (total, cartItem) => {
         const { amount, price } = cartItem;
-
+        // initial total is object so we can add values for it's properties each iteration over cartItems
         total.total_items += amount;
         total.total_amount += price * amount;
+        // total example: {total_items: 8, total_amount: 49792}
         return total
       },
       {
