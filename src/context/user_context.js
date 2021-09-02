@@ -11,17 +11,19 @@ export const UserProvider = ({ children }) => {
     // console.log(`'user': ${user}`);
     // console.log(`'isAuthenticated': ${isAuthenticated}`);
     // console.log(`'isLoading': ${isLoading}`);
-    if (isAuthenticated) {
+    if (user) {
       setMyUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
     } else {
       setMyUser(false);
+      localStorage.setItem('user', null)
     }
     console.log(myUser);
 
-  }, [isAuthenticated]);
+  }, [user]);
 
   return (
-    <UserContext.Provider value={{ loginWithRedirect, logout, myUser }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ loginWithRedirect, logout, myUser, isLoading }}>{children}</UserContext.Provider>
   )
 }
 // make sure use
