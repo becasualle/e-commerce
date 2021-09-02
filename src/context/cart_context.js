@@ -7,7 +7,7 @@ import {
   CLEAR_CART,
   COUNT_CART_TOTALS,
 } from '../actions'
-import { links } from '../utils/constants'
+// import { links } from '../utils/constants'
 
 const getLocalStorage = () => {
   let cart = localStorage.getItem('cart');

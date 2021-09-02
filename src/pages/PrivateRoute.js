@@ -5,14 +5,11 @@ import { useAuth0 } from '@auth0/auth0-react';
 // REDIRECTS FROM CHECKOUT WHEN USER IS NOT LOGGED IN
 // rest operator to get all props
 const PrivateRoute = ({ children, ...rest }) => {
-  const myUser = localStorage.getItem('user')
-    ? JSON.parse(localStorage.getItem('user'))
-    : null
-
+  const { user } = useAuth0();
   // spread operator to push all props
   return <Route {...rest} render={() => {
     // if user doesn't logged in and go to checkout - redirect to HomePage
-    return myUser ? children : <Redirect to="/"></Redirect>
+    return user ? children : <Redirect to="/"></Redirect>
   }}>
 
   </Route>

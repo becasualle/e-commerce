@@ -6,7 +6,7 @@ const ProductImages = ({ images = [{ url: '' }] }) => {
   const [main, setMain] = useState(images[0]);
 
   return <Wrapper>
-    <img src={main.url} alt="main image" className="main" />
+    <img src={main.url} alt="main" className="main" />
     <div className="gallery">
       {images.map((image, index) => {
         // when click on small image - update state and show it as main image
