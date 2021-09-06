@@ -16,6 +16,13 @@ import {
 // Create and change state using reducer
 // Send state and functions that contolls state using context
 
+// isSideBarOpen - onClick call openSidebar func in Navbar.js and change to true
+// isSideBarOpen - onClick call closeSidebar func in Sidebar.js and change to false
+// products_loading - on initial upload useEffect - fetchProducts. True when begin, false when error or success
+// products_error - fetchProducts when catched error
+// products, featured_products - when success upload data from API (fetchProducts, products_reducer GET_PRODUCTS_SUCCESS)
+// single_product_... - same logic, using fetchSingleProduct, useEffect with this func when SingleProductPage uploads
+
 const initialState = {
   isSideBarOpen: false,
   products_loading: false,

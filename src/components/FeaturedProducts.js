@@ -22,7 +22,7 @@ const FeaturedProducts = () => {
       <div className="underline"></div>
     </div>
     <div className="section-center featured">
-      {/* get first 3 prodicts: slice items with index 0-3 not included 3 */}
+      {/* get first 3 products: slice items with index 0-3 not included 3 */}
       {featured.slice(0, 3).map((product) => {
         return <Product key={product.id} {...product} />
       })}
