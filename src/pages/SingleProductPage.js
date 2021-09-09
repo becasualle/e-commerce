@@ -22,7 +22,8 @@ const SingleProductPage = () => {
   // get state values
   const { single_product_loading: loading, single_product_error: error, single_product: product, fetchSingleProduct } = useProductsContext();
 
-  // get product data
+  // get product data each time when we load new page (id changes)
+  // in products_context we get data and update single_product in state 
   useEffect(() => {
     fetchSingleProduct(`${url}${id}`)
     // eslint-disable-next-line
@@ -43,6 +44,7 @@ const SingleProductPage = () => {
   if (loading) {
     return <Loading />
   }
+
   if (error) {
     return <Error />
   }

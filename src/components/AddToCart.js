@@ -7,15 +7,18 @@ import AmountButtons from './AmountButtons'
 
 const AddToCart = ({ product }) => {
   const { addToCart } = useCartContext();
+  // get props from SingleProductPage, which gets data using fetchSingleProduct in products_context
   const { id, stock, colors } = product;
-
+  // colors is array so basically we set first color as main. We will update this state when click on color. 
   const [mainColor, setMainColor] = useState(colors[0]);
+  // when we add product we add at least one of it
   const [amount, setAmount] = useState(1);
 
+  // when we click plus button add 1 product, but we can add as many products as we have in stock, not more
   const increase = () => {
-
     setAmount((prevAmount) => {
       let tempAmount = prevAmount + 1;
+      // if we have more items that in stock - stop adding 1
       if (tempAmount > stock) {
         tempAmount = stock;
       }
@@ -23,7 +26,7 @@ const AddToCart = ({ product }) => {
     });
 
   }
-
+  // when we click minus button decrease amount, but we can't have less than one (unless we delete in cart)
   const decrease = () => {
     setAmount((prevAmount) => {
       let tempAmount = prevAmount - 1;
@@ -38,22 +41,26 @@ const AddToCart = ({ product }) => {
     <div className="colors">
       <span>colors : </span>
       {/* generate color button and change background color from array */}
-      {/* on click update state. If we color of element matches main color - se opacity to 1 and add check icon */}
-      <div>{
-        colors.map((color, index) => {
-          return <button
-            key={index}
-            className={`${mainColor === color ? 'color-btn active' : 'color-btn'}   `}
-            style={{ background: color }}
-            onClick={() => { setMainColor(color) }}
-          >
-            {mainColor === color ? <FaCheck /> : null}
-          </button>
-        })
-      }</div>
+      {/* on click update state. If we color of element matches main color - set opacity to 1 and add check icon */}
+      <div>
+        {
+          colors.map((color, index) => {
+            return <button
+              key={index}
+              className={`${mainColor === color ? 'color-btn active' : 'color-btn'}   `}
+              style={{ background: color }}
+              onClick={() => { setMainColor(color) }}
+            >
+              {mainColor === color ? <FaCheck /> : null}
+            </button>
+          })
+        }
+      </div>
     </div>
+
     <div className="btn-container">
       <AmountButtons amount={amount} increase={increase} decrease={decrease} />
+      {/* when we click on button - in cart_reducer fires ADD_TO_CART action */}
       <Link to="/cart" className="btn" onClick={() => addToCart(id, mainColor, amount, product)}>add to cart</Link>
     </div>
   </Wrapper>

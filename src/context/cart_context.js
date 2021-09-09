@@ -30,8 +30,8 @@ const CartContext = React.createContext()
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // when click on "Add to cart" pass data to reducer
-  // data stores in "AddToCart" component which is part of "SingleProductPage"
+  // we fire add to cart in AddToCart when click on button. Product and id we get from single_product state, color and amount from AddToCart
+  // this function will add new item to a cart, or if it exists - change it amount in state. We will update "cart" state with new or modified object. It will trigger useEffect which setItem to localStorage 
   const addToCart = (id, color, amount, product) => {
     dispatch({ type: ADD_TO_CART, payload: { id, color, amount, product } })
   }
@@ -49,6 +49,7 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: CLEAR_CART })
   };
 
+  // each time we change "cart" state (by using functions above and corresponding actions to reducer) - update localStorage
   useEffect(() => {
     dispatch({ type: COUNT_CART_TOTALS })
     localStorage.setItem('cart', JSON.stringify(state.cart));

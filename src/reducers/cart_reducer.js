@@ -8,13 +8,14 @@ import {
 
 const cart_reducer = (state, action) => {
   if (action.type === ADD_TO_CART) {
+    // color and amount which we select when add to cart, id and product - from single_product state
     const { id, color, amount, product } = action.payload;
     //Example: { id: "recm7wC8TBVdU9oEL", color(mainColor): "#0000ff", amount: 1, product: {category, colors, company, description, id, images, name, price, reviews, stars, stock} } 
 
     // find if there is same item already in the cart
     const tempItem = state.cart.find(item => {
       // compare if id item in cart (recoW8ecgjtKx2Sj2#ff0000) matches id item that we add 
-      // if we add item with same id and same color like we already have in the card - create tempItem
+      // if we add item with same id and same color like we already have in the card - create tempItem. if not - create new item and it to a cart
       return item.id === id + color
     })
 
@@ -23,21 +24,26 @@ const cart_reducer = (state, action) => {
     if (tempItem) {
       const tempCart = state.cart.map(cartItem => {
         // update amount only for exact item with same color and id, not to all items in array
+        // for item that matches update amount or set it to max amd update it's amount
         if (cartItem.id === id + color) {
+
           let newAmount = cartItem.amount + amount;
           if (newAmount > cartItem.max) {
             newAmount = cartItem.max
           }
           return { ...cartItem, amount: newAmount }
+          // if item doesn't match just return it
         } else {
           return cartItem
         }
       })
-
+      // update state with those changes
       return { ...state, cart: tempCart }
     }
-    // add new item to the cart 
+
+    // if we don't have this item -- add new item to the cart 
     else {
+      // create unique id for item using color, for matching when we do some changes
       const newItem = {
         id: id + color,
         name: product.name,
