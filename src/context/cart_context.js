@@ -36,21 +36,26 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: ADD_TO_CART, payload: { id, color, amount, product } })
   }
 
+  // call this function when click on button in CartItem, get id of state.cart.item.id
+  // update state.cart using filter by id in cart_reducer
   const removeItem = id => {
     dispatch({ type: REMOVE_CART_ITEM, payload: id })
   };
 
+  // call it when click on increase or decrease buttons and send value to identify operation, update state.cart.amount in cart_reducer
   const toggleAmount = (id, value) => {
     // console.log({ id, value })
     dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { id, value } })
   };
 
+  // call it in CartContent. In cart_reducer return state.cart = [] 
   const clearCart = () => {
     dispatch({ type: CLEAR_CART })
   };
 
   // each time we change "cart" state (by using functions above and corresponding actions to reducer) - update localStorage
   useEffect(() => {
+    // on every cart change count and update total_items, total_amount
     dispatch({ type: COUNT_CART_TOTALS })
     localStorage.setItem('cart', JSON.stringify(state.cart));
   }, [state.cart])
