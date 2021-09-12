@@ -12,10 +12,9 @@ import {
 const filter_reducer = (state, action) => {
 
   if (action.type === LOAD_PRODUCTS) {
-    let maxPrice = action.payload.map((product) => product.price);
-    maxPrice = Math.max(...maxPrice);
-
-    // we need to use spread operator with products, because it creats separate instance and when we filter we don't affect to default array
+    const prices = action.payload.map((product) => product.price);
+    const maxPrice = Math.max(...prices);
+    // we need to use spread operator with products, because it creates separate instance and when we filter we don't affect to default array
     // we are copying the values, not reference to same place in memory
     return {
       ...state, all_products: [...action.payload],

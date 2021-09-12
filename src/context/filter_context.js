@@ -33,32 +33,41 @@ const initialState = {
 const FilterContext = React.createContext()
 
 export const FilterProvider = ({ children }) => {
+  // get array of objects with product properties from products_context state
   const { products } = useProductsContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // initially products is empty, that's why we need to use it in dependency (update state when we get our products array)
   useEffect(() => {
+    // add products to state.all_products and state.filtered_products, calculate and add max price to state.filters.max_price and state.filters.price
     dispatch({ type: LOAD_PRODUCTS, payload: products })
   }, [products])
 
+  // when we change sort type or select/clear filters 
   useEffect(() => {
+    // update state.filtered_products based on state.filters values (depending on value use .filter to find matching values)
     dispatch({ type: FILTER_PRODUCTS })
+    // update state.filtered_products based on state.sort values by using .sort
     dispatch({ type: SORT_PRODUCTS })
   }, [products, state.sort, state.filters])
 
+  // when click on view button in Sort, change state.grid_view to true
   const setGridView = () => {
     dispatch({ type: SET_GRIDVIEW })
   }
+  // when click on view button in Sort, change state.grid_view to false
   const setListView = () => {
     dispatch({ type: SET_LISTVIEW })
   }
 
+  // when change option in select in Sort, update value in state.sort
   const updateSort = (e) => {
     const value = e.target.value;
-    // value: 'price-highest'
+    // e.x. value: 'price-highest'
     dispatch({ type: UPDATE_SORT, payload: value })
   }
 
+  // When click on filter element (input/button) in Filter, update corresponding property value in state.filters
   const updateFilters = e => {
     const name = e.target.name;
     let value = e.target.value;
@@ -79,11 +88,10 @@ export const FilterProvider = ({ children }) => {
       value = e.target.checked;
     }
 
-    // console.log({ name, value })
-
     dispatch({ type: UPDATE_FILTERS, payload: { name, value } })
   }
 
+  // when click on button in Filters, change state.filters back to default (initial state)
   const clearFilters = () => {
     dispatch({ type: CLEAR_FILTERS })
   }
